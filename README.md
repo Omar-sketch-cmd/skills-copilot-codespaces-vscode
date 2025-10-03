@@ -67,7 +67,7 @@ self_balancing_robot/
 
 ## 🚀 Installation
 
-### Development Environment (Ubuntu/Mac/Windows)
+### Option 1: Local Installation (Recommended)
 
 ```bash
 # Clone the repository
@@ -80,6 +80,23 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
+
+# Or install as package
+pip install -e .
+```
+
+### Option 2: Docker Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/Omar-sketch-cmd/skills-copilot-codespaces-vscode.git
+cd skills-copilot-codespaces-vscode
+
+# Build Docker image
+docker build -t self-balancing-robot .
+
+# Or use docker-compose
+docker-compose up train
 ```
 
 ### Raspberry Pi Setup
@@ -217,6 +234,40 @@ python3 scripts/raspberry_pi_inference.py \
 python3 scripts/raspberry_pi_inference.py \
     ~/ppo_final_20240101_120000.zip \
     --frequency 100  # 100 Hz control loop
+```
+
+### 6. Using Docker
+
+#### Train with Docker
+
+```bash
+# Using docker-compose (recommended)
+docker-compose up train
+
+# Or manually
+docker run -v $(pwd)/self_balancing_robot/saved_models:/app/self_balancing_robot/saved_models \
+           -v $(pwd)/self_balancing_robot/logs:/app/self_balancing_robot/logs \
+           self-balancing-robot python3 self_balancing_robot/scripts/train_ppo.py
+```
+
+#### Test with Docker
+
+```bash
+# Test without rendering
+docker-compose up test
+
+# Test with specific model
+docker run -v $(pwd)/self_balancing_robot/saved_models:/app/self_balancing_robot/saved_models \
+           self-balancing-robot \
+           python3 self_balancing_robot/scripts/test_model.py \
+           --model saved_models/ppo_final.zip --no-render
+```
+
+#### TensorBoard with Docker
+
+```bash
+docker-compose up tensorboard
+# Open browser to: http://localhost:6006
 ```
 
 ## 🧪 Development Workflow

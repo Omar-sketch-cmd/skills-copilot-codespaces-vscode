@@ -1,0 +1,18 @@
+include README.md
+include LICENSE
+include QUICKSTART.md
+include HARDWARE.md
+include FAQ.md
+include CONTRIBUTING.md
+include CHANGELOG.md
+include requirements.txt
+include Makefile
+include pytest.ini
+include .editorconfig
+
+recursive-include self_balancing_robot/urdf *.urdf
+recursive-include self_balancing_robot/config *.yaml *.yml
+
+global-exclude __pycache__
+global-exclude *.py[co]
+global-exclude .DS_Store

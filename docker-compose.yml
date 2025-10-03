@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  # Training service
+  train:
+    build: .
+    image: self-balancing-robot:latest
+    container_name: robot-train
+    volumes:
+      - ./self_balancing_robot/saved_models:/app/self_balancing_robot/saved_models
+      - ./self_balancing_robot/logs:/app/self_balancing_robot/logs
+    command: python3 self_balancing_robot/scripts/train_ppo.py --timesteps 100000
+    environment:
+      - PYTHONUNBUFFERED=1
+    
+  # Testing service (no GUI)
+  test:
+    build: .
+    image: self-balancing-robot:latest
+    container_name: robot-test
+    volumes:
+      - ./self_balancing_robot/saved_models:/app/self_balancing_robot/saved_models
+    command: python3 self_balancing_robot/scripts/test_model.py --random --no-render --episodes 5
+    environment:
+      - PYTHONUNBUFFERED=1
+    
+  # Demo service
+  demo:
+    build: .
+    image: self-balancing-robot:latest
+    container_name: robot-demo
+    command: python3 self_balancing_robot/scripts/demo.py
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DISPLAY=:99
+    
+  # TensorBoard service
+  tensorboard:
+    build: .
+    image: self-balancing-robot:latest
+    container_name: robot-tensorboard
+    ports:
+      - "6006:6006"
+    volumes:
+      - ./self_balancing_robot/logs:/app/self_balancing_robot/logs
+    command: tensorboard --logdir /app/self_balancing_robot/logs/tensorboard --host 0.0.0.0
+    environment:
+      - PYTHONUNBUFFERED=1

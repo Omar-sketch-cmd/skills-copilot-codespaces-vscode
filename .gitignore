@@ -205,3 +205,10 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Self-Balancing Robot Project
+self_balancing_robot/logs/
+self_balancing_robot/saved_models/
+*.onnx
+*.pb
+*.pth

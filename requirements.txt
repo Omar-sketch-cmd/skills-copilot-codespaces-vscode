@@ -1,0 +1,20 @@
+# Core dependencies for self-balancing robot with RL
+gym==0.26.2
+pybullet==3.2.5
+stable-baselines3==2.0.0
+numpy==1.24.3
+torch==2.0.1
+
+# For Raspberry Pi hardware interface
+RPi.GPIO==0.7.1
+smbus2==0.4.2
+adafruit-circuitpython-mpu6050==1.2.2
+
+# Utilities
+matplotlib==3.7.1
+tensorboard==2.13.0
+scipy==1.10.1
+
+# For model export and optimization
+onnx==1.14.0
+onnxruntime==1.15.1

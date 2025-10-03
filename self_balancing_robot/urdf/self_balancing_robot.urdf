@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<robot name="self_balancing_robot">
+  
+  <!-- Define colors for visualization -->
+  <material name="blue">
+    <color rgba="0.2 0.2 0.8 1.0"/>
+  </material>
+  
+  <material name="black">
+    <color rgba="0.1 0.1 0.1 1.0"/>
+  </material>
+  
+  <material name="white">
+    <color rgba="0.9 0.9 0.9 1.0"/>
+  </material>
+  
+  <!-- Base Link (Robot Body) -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <mass value="1.5"/>
+      <inertia ixx="0.015" ixy="0" ixz="0" 
+               iyy="0.015" iyz="0" 
+               izz="0.005"/>
+    </inertial>
+    
+    <visual>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.12 0.08 0.20"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    
+    <collision>
+      <origin xyz="0 0 0.1" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.12 0.08 0.20"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <!-- Left Wheel -->
+  <link name="left_wheel">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" 
+               iyy="0.0001" iyz="0" 
+               izz="0.0001"/>
+    </inertial>
+    
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5707 0 0"/>
+      <geometry>
+        <cylinder radius="0.04" length="0.02"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5707 0 0"/>
+      <geometry>
+        <cylinder radius="0.04" length="0.02"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <!-- Right Wheel -->
+  <link name="right_wheel">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.1"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" 
+               iyy="0.0001" iyz="0" 
+               izz="0.0001"/>
+    </inertial>
+    
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5707 0 0"/>
+      <geometry>
+        <cylinder radius="0.04" length="0.02"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5707 0 0"/>
+      <geometry>
+        <cylinder radius="0.04" length="0.02"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <!-- Left Wheel Joint -->
+  <joint name="left_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="left_wheel"/>
+    <origin xyz="0 0.05 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <dynamics damping="0.01" friction="0.1"/>
+  </joint>
+  
+  <!-- Right Wheel Joint -->
+  <joint name="right_wheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="right_wheel"/>
+    <origin xyz="0 -0.05 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <dynamics damping="0.01" friction="0.1"/>
+  </joint>
+  
+</robot>
